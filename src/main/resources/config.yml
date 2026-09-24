@@ -1,0 +1,155 @@
+# ============================================
+#               GhostSpear config
+#  After editing, run /ghostspear reload
+#  Times are in ticks (20 ticks = 1 second)
+# ============================================
+
+# Don't touch this - it lets the plugin update your config automatically
+config-version: 6
+
+item:
+  # The item the Ghost Spear is made from. NETHERITE_SPEAR is the 1.21.11 spear.
+  material: NETHERITE_SPEAR
+  # Used if the material above doesn't exist on your server version.
+  fallback-material: TRIDENT
+  # Text uses MiniMessage format: https://docs.advntr.dev/minimessage/format
+  name: "<gradient:#c9f6ff:#7b86ff><bold>Ghost Spear</bold></gradient>"
+  lore:
+    - "<gray>Swing: <white>Ghost Mode</white> (swing again to leave)"
+    - "<gray>Hold right-click while a ghost: <aqua>Soul Pierce</aqua>"
+    - ""
+    - "<dark_gray>Leaves a copy of you behind..."
+  unbreakable: true
+  glint: true
+
+ghost-mode:
+  # How you turn invisible:
+  #   HIDE   = (recommended) you're completely removed from other players' screens:
+  #            no body, no held item, no armor, no running/landing particles, no footsteps.
+  #            You also disappear from the tab list, and other players can't hit you while hidden.
+  #   POTION = invisibility effect + your armor/held item hidden. You stay in the tab list and can
+  #            still be hit, BUT other players will still see your sprinting dust particles and hear
+  #            footsteps (Minecraft draws those on their side, a plugin can't block them in this mode).
+  invisibility: HIDE
+  # Wait time between turning ghost mode on/off
+  toggle-cooldown-ticks: 20
+  # Auto-reveal after this long (0 = no limit)
+  max-duration-ticks: 0
+  # Attacking anything (melee or projectile) reveals you
+  end-on-attack: true
+  # Show a small "Ghost mode" reminder on your action bar (only you see it)
+  show-status: true
+
+decoy:
+  # Show your name above the decoy like a real player
+  show-name: true
+  # If you were sneaking, the decoy sneaks too
+  copy-sneaking: true
+  # Decoy flinches, makes the hurt sound and gets knocked back when hit (it never takes damage)
+  react-to-hits: true
+  # true = someone hitting your decoy reveals you
+  reveal-when-hit: false
+  # Damage your decoy takes is also dealt to the real you (your own armor still protects you).
+  # If the decoy takes too much, you die.
+  share-damage: true
+  # 1.0 = same damage, 0.5 = half, 2.0 = double
+  shared-damage-multiplier: 1.0
+  # Damage types that are NOT passed on to you (e.g. the decoy falling when you turned ghost mid-jump)
+  shared-damage-ignore:
+    - FALL
+    - VOID
+    - SUFFOCATION
+    - CRAMMING
+    - DROWNING
+    - STARVATION
+    - KILL
+    - WORLD_BORDER
+    - SUICIDE
+  # Small soul-particle poof where the decoy was when ghost mode ends
+  poof-on-end: true
+
+# The effect when a ghost (or a Soul Pierce) hits something
+hit-effect:
+  enabled: true
+  # A glowing orb shoots straight up out of the person who got hit, and the explosion happens where it stops
+  # (false = the explosion happens right on them instead)
+  orb: true
+  # How high the orb flies before exploding (blocks). It stops early if there's a ceiling.
+  orb-height: 8.0
+  # How fast the orb rises (blocks per tick)
+  orb-speed: 0.8
+  # Radius of the orb (blocks)
+  orb-size: 0.55
+  # Size of the pulsing rainbow sphere around the target (blocks)
+  sphere-radius: 3.5
+  sphere-points: 320
+  # How many dripstone-shaped spikes shoot out of the target
+  spikes: 32
+  # How far the spikes reach (blocks). Shards keep flying past the tips.
+  spike-length: 8.0
+  # How thick the base of each spike is (blocks, radius)
+  spike-thickness: 0.6
+  # How many ticks the spikes take to shoot all the way out (lower = faster)
+  spike-ticks: 7
+  # Ring of fire that rushes out along the ground
+  shockwave: true
+  # Giant netherite spear made of particles, planted behind the target
+  giant-spear: true
+  giant-spear-length: 16.0
+  # How long the giant spear stays (ticks, 20 = 1 second)
+  giant-spear-ticks: 40
+  # Overall particle amount. Lower it (e.g. 0.6) if players lag, raise it (up to 3.0) for even more.
+  density: 1.0
+
+# White flag made of particles that appears high in the sky when a ghost's hit kills someone
+flag:
+  enabled: true
+  # true = only when a player dies, false = mobs too (handy for testing alone)
+  players-only: false
+  # How high above the death spot the bottom of the flag pole is (blocks) - above the explosion
+  height: 22.0
+  # How long the flag stays. Easier to change in-game: /ghostspear flagtime 2m
+  duration-seconds: 60
+  # If more flags than this are up at once, the oldest one disappears
+  max-active: 10
+
+# Warden death sound when a ghost's hit kills someone or pops their totem
+finisher:
+  enabled: true
+  # true = only for players, false = mobs too (handy for testing alone)
+  players-only: false
+  volume: 2.0
+  pitch: 1.0
+
+charge:
+  # true  = Soul Pierce only works while you're in ghost mode
+  # false = any charged Ghost Spear hit one-taps (very OP)
+  require-ghost-mode: true
+  # A Soul Pierce first drops the target to this much health (1.0 = half a heart)...
+  # (set to 0 to turn this off)
+  set-health-to: 1.0
+  # ...then hits them for this much damage (60 = 30 hearts), so they die or pop their totem.
+  damage: 60.0
+  # Golden apple / absorption hearts don't save them
+  remove-absorption: true
+  # Shields don't block it
+  ignore-shields: true
+  # How far in front of you the pierce reaches (blocks)
+  reach: 3.5
+  # How wide the hit check is (bigger = easier to land)
+  hitbox-size: 0.6
+  hit-players: true
+  hit-mobs: true
+
+messages:
+  ghost-on: "<aqua>Ghost mode on.</aqua> <gray>Swing again to come back."
+  ghost-off: "<gray>Ghost mode off."
+  ghost-off-attack: "<red>You attacked - you've been revealed!"
+  ghost-off-decoy-hit: "<red>Someone hit your decoy - you've been revealed!"
+  ghost-off-timeout: "<gray>Ghost mode wore off."
+  ghost-off-decoy-gone: "<gray>Your decoy disappeared, so ghost mode ended."
+  ghost-status: "<dark_aqua>👻 Ghost mode"
+  cooldown: "<gray>Ghost mode ready in <white><seconds>s</white>"
+  decoy-failed: "<red>Couldn't create your decoy. Is the server running Paper 1.21.11?"
+  pierce: "<dark_aqua>Soul Pierce!</dark_aqua>"
+  decoy-hit: "<red>Your decoy is being attacked!"

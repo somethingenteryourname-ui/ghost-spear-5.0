@@ -1,0 +1,25 @@
+name: GhostSpear
+version: '${project.version}'
+main: dev.ghostspear.GhostSpearPlugin
+api-version: '1.21'
+description: A spear that phantom-dashes, leaves ghost afterimages, and one-taps with a charged pierce.
+
+commands:
+  ghostspear:
+    description: Get the Ghost Spear or reload the config.
+    usage: /ghostspear <give|reload|flagtime> [player|time]
+    aliases: [gspear]
+
+permissions:
+  ghostspear.use:
+    description: Use the Ghost Spear's dash and Soul Pierce.
+    default: true
+  ghostspear.give:
+    description: Give Ghost Spears with /ghostspear give.
+    default: op
+  ghostspear.reload:
+    description: Reload the config with /ghostspear reload.
+    default: op
+  ghostspear.flagtime:
+    description: Set how long death flags stay with /ghostspear flagtime.
+    default: op
